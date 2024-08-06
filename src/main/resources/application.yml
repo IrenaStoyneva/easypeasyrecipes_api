@@ -34,4 +34,4 @@ server:
 
 jwt:
   secret: ${JWT_KEY}
-  expiration: ${JWT_EXPIRATION:60000}
+

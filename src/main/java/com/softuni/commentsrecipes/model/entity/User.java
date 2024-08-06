@@ -2,11 +2,6 @@ package com.softuni.commentsrecipes.model.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -35,6 +30,5 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
     
 }

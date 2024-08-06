@@ -1,9 +1,9 @@
 package com.softuni.commentsrecipes.service.Impl;
 
 
-import com.softuni.commentsrecipes.Repository.CommentRepository;
-import com.softuni.commentsrecipes.Repository.RecipeRepository;
-import com.softuni.commentsrecipes.Repository.UserRepository;
+import com.softuni.commentsrecipes.repository.CommentRepository;
+import com.softuni.commentsrecipes.repository.RecipeRepository;
+import com.softuni.commentsrecipes.repository.UserRepository;
 import com.softuni.commentsrecipes.model.dto.CommentDto;
 import com.softuni.commentsrecipes.model.entity.Comment;
 import com.softuni.commentsrecipes.model.entity.Recipe;
@@ -12,13 +12,14 @@ import com.softuni.commentsrecipes.service.CommentRestService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CommentRestServiceImpl implements CommentRestService {
@@ -79,6 +80,24 @@ public class CommentRestServiceImpl implements CommentRestService {
     @Override
     public Comment getLastComment() {
         return commentRepository.findTopByOrderByIdDesc();
+    }
+    @Override
+    public CommentDto updateComment(@AuthenticationPrincipal UserDetails userDetails, Long commentId, CommentDto commentDto) {
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("Comment is not found"));
+
+        comment.setContent(commentDto.getContent());
+        comment.setCreatedOn(LocalDateTime.now());
+
+        Comment updatedComment = commentRepository.save(comment);
+
+        return modelMapper.map(updatedComment, CommentDto.class);
+    }
+    @Override
+    public Comment getCommentById(Long id) {
+        logger.info("Finding comment with ID: {}", id);
+        return commentRepository.findById(id).orElse(null);
     }
 
 }

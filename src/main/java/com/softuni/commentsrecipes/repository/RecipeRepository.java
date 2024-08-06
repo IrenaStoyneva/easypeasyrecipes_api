@@ -1,4 +1,4 @@
-package com.softuni.commentsrecipes.Repository;
+package com.softuni.commentsrecipes.repository;
 
 import com.softuni.commentsrecipes.model.entity.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;

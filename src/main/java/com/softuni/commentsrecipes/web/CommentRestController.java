@@ -2,36 +2,30 @@ package com.softuni.commentsrecipes.web;
 
 import com.softuni.commentsrecipes.model.dto.CommentDto;
 import com.softuni.commentsrecipes.model.entity.Comment;
-import com.softuni.commentsrecipes.model.entity.User;
-import com.softuni.commentsrecipes.repository.CommentRepository;
-import com.softuni.commentsrecipes.repository.UserRepository;
 import com.softuni.commentsrecipes.service.CommentRestService;
+import com.softuni.commentsrecipes.service.JwtService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/comments")
 public class CommentRestController {
     private final CommentRestService commentRestService;
-    private final ModelMapper modelMapper;
-    private static final Logger logger = LoggerFactory.getLogger(CommentRestController.class);
+    private final ModelMapper modelMapper;private static final Logger logger = LoggerFactory.getLogger(CommentRestController.class);
 
-    public CommentRestController(CommentRestService commentRestService, ModelMapper modelMapper) {
+    public CommentRestController(CommentRestService commentRestService, ModelMapper modelMapper, JwtService jwtService) {
         this.commentRestService = commentRestService;
         this.modelMapper = modelMapper;
     }
@@ -58,10 +52,13 @@ public class CommentRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
-        commentRestService.deleteComment(id, null);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<CommentDto> deleteComment(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
+        commentRestService.deleteComment(userDetails, id);
+        return ResponseEntity
+                .noContent()
+                .build();
     }
+
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

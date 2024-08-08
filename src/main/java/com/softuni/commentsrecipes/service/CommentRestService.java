@@ -13,7 +13,7 @@ public interface CommentRestService {
 
     List<Comment> findAllComments();
 
-    void deleteComment(Long commentId, Long userId);
+    void deleteComment(UserDetails userDetails, Long userId);
 
     Object getLastComment();
 

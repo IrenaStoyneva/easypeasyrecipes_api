@@ -12,6 +12,7 @@ import com.softuni.commentsrecipes.service.CommentRestService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -71,11 +72,17 @@ public class CommentRestServiceImpl implements CommentRestService {
     }
 
     @Override
-    public void deleteComment(Long commentId, Long userId) {
+    @PreAuthorize("@commentRestServiceImpl.isOwner(#userDetails, #commentId) or hasRole('ROLE_ADMIN')")
+    public void deleteComment(UserDetails userDetails, Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found"));
 
         commentRepository.delete(comment);
+    }
+    public boolean isOwner(UserDetails userDetails, Long commentId) {
+        return commentRepository.findById(commentId)
+                .map(comment -> comment.getAuthor().getUsername().equals(userDetails.getUsername()))
+                .orElse(false);
     }
     @Override
     public Comment getLastComment() {

@@ -21,4 +21,16 @@ Before you begin, ensure you have met the following requirements:
 
 - Java 17 or later installed
 - MySQL database running
-- Maven installed
+
+# Comments Recipes API
+
+This project provides a RESTful API for managing comments on recipes.
+
+## Postman Collection
+
+To simplify the process of testing the API, there is included file with sample HTTP requests that you can use directly in Postman or other API testing tools.
+
+### File with HTTP Requests
+
+- **File:** `requests.http`
+- **Description:** This file contains example HTTP requests for creating, updating, retrieving, and deleting comments. You can directly use it in tools like Postman or similar.

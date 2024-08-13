@@ -1,0 +1,29 @@
+### Send POST request with json body
+
+POST http://localhost:8081/api/comments/recipe/{recipeId}
+
+{
+    "content": "This is a test comment.",
+    "createdOn": "2024-08-13T12:00:00",
+    "authorId": 1,
+    "recipeId": 5
+}
+
+### Send PUT request with json body
+
+PUT http://localhost:8081/api/comments/{commentId}
+
+{
+    "content": " Тest comment.",
+    "createdOn": "2024-08-13T12:00:00",
+    "authorId": 1,
+    "recipeId": 5
+}
+
+### Send GET request
+
+GET http://localhost:8081/api/comments
+
+### Send DELETE request
+
+DELETE localhost:8081/api/comments/{commentId}

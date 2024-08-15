@@ -11,6 +11,16 @@ The EasyPeasyRecipes API is a Spring Boot application that provides RESTful endp
 
 You can download the project as a ZIP file [here](https://github.com/IrenaStoyneva/easypeasyrecipes_api/releases/download/v1.0.0/comments-recipes.zip).
 
+## Setting Up Environment Variables
+
+Before running the application, make sure to set up the following environment variables. You can do this by creating a `.env` file in the root directory of the project.
+
+```plaintext
+JWT_KEY=your_jwt_key_here
+DB_URL=jdbc:mysql://localhost:3306/easypeasyrecipes
+DB_USERNAME=your_db_username
+DB_PASSWORD=your_db_password
+```
 
 ## Technologies Used
 

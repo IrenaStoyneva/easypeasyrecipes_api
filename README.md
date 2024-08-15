@@ -7,6 +7,11 @@ This repository contains the REST API for the EasyPeasyRecipes application. It h
 
 The EasyPeasyRecipes API is a Spring Boot application that provides RESTful endpoints for managing comments on recipes. It interacts with the main EasyPeasyRecipes application to fetch and update data.
 
+## Download the API Project
+
+You can download the project as a ZIP file [here](https://github.com/IrenaStoyneva/easypeasyrecipes_api/releases/download/v1.0.0/comments-recipes.zip).
+
+
 ## Technologies Used
 
 - Java 17
